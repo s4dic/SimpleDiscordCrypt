@@ -2662,7 +2662,7 @@
         let message = event.message;
         if(message.content == null && message.embeds != null && message.embeds.length === 1) {
             let embed = message.embeds[0];
-            if(embed.footer != null && (embed.footer.text === "SimpleDiscordCrypt" || embed.footer.text === "🔒")) {
+            if(embed.footer != null && (embed.footer.text === "🔒" || embed.footer.text === "🔒")) {
                 return; //ignore embed-only updates
             }
         }
@@ -2671,8 +2671,8 @@
             return await Discord.original_dispatch.apply(this, arguments);
     }
     
-    const messageRegex = /^([⠀-⣿]{16,}) `(?:SimpleDiscordCrypt|🔒)`$/;
-    const systemMessageRegex = /^```(?:\w*\n)?-----SYSTEM MESSAGE-----\n?```\s*(.*?)\s*```(?:\w*\n)?(?:🔒|SimpleDiscordCrypt)\n?```$/s;
+    const messageRegex = /^([⠀-⣿]{16,}) `(?:🔒|🔒)`$/;
+    const systemMessageRegex = /^```(?:\w*\n)?-----SYSTEM MESSAGE-----\n?```\s*(.*?)\s*```(?:\w*\n)?(?:🔒|🔒)\n?```$/s;
     const unknownKeyMessage = "```fix\n-----ENCRYPTED MESSAGE WITH UNKNOWN KEY-----\n```";
     const invalidMessage = "```diff\n-⁣----ENCRYPTED MESSAGE WITH UNKNOWN FORMAT-----\n```"; //invisible separator after the first '-'
     async function processMessage(message, ignoreAttachments) {
@@ -3483,7 +3483,7 @@
     async function processEmbeds(message, ignoreAttachments) {
         if(message.embeds == null || message.embeds.length !== 1) return;
         let embed = message.embeds[0];
-        if(embed.footer == null || (embed.footer.text !== "SimpleDiscordCrypt" && embed.footer.text !== "🔒")) return;
+        if(embed.footer == null || (embed.footer.text !== "🔒" && embed.footer.text !== "🔒")) return;
     
         if(embed.author == null) return;
     

@@ -3,7 +3,7 @@
 // @namespace    https://gitlab.com/An0/SimpleDiscordCrypt
 // @version      1.7.2.0
 // @description  I hope people won't start calling this SDC ^_^
-// @author       An0 [Edited By Sleek]
+// @author       An0
 // @license      LGPLv3 - https://www.gnu.org/licenses/lgpl-3.0.txt
 // @downloadURL  https://gitlab.com/An0/SimpleDiscordCrypt/raw/master/SimpleDiscordCrypt.user.js
 // @updateURL    https://gitlab.com/An0/SimpleDiscordCrypt/raw/master/SimpleDiscordCrypt.meta.js
@@ -3581,7 +3581,7 @@
                 },
                 description: payload,
                 footer: {
-                    text: "𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵",
+                    text: "🔒",
                     icon_url: "https://i.imgur.com/zWXtTpX.png",
                 }
             };

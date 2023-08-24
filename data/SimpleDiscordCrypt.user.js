@@ -2058,7 +2058,7 @@
                     message: {
                         channelId: channelId,
                         nonce: this.GetNonce(),
-                        content: "```ml\n-----SYSTEM MESSAGE-----\n```" + sysmsg + "\n`🔒` ```yaml\n🔒\n```"
+                        content: "```ml\n-----SYSTEM MESSAGE-----\n```" + sysmsg + "\n`𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵` ```yaml\n𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵\n```"
                     }
                 }, () => { /*TODO*/ });
             },
@@ -2671,8 +2671,8 @@
             return await Discord.original_dispatch.apply(this, arguments);
     }
     
-    const messageRegex = /^([⠀-⣿]{16,}) `(?:🔒|🔒)`$/;
-    const systemMessageRegex = /^```(?:\w*\n)?-----SYSTEM MESSAGE-----\n?```\s*(.*?)\s*```(?:\w*\n)?(?:🔒|🔒)\n?```$/s;
+    const messageRegex = /^([⠀-⣿]{16,}) `(?:SimpleDiscordCrypt|𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵)`$/;
+    const systemMessageRegex = /^```(?:\w*\n)?-----SYSTEM MESSAGE-----\n?```\s*(.*?)\s*```(?:\w*\n)?(?:𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵|SimpleDiscordCrypt)\n?```$/s;
     const unknownKeyMessage = "```fix\n-----ENCRYPTED MESSAGE WITH UNKNOWN KEY-----\n```";
     const invalidMessage = "```diff\n-⁣----ENCRYPTED MESSAGE WITH UNKNOWN FORMAT-----\n```"; //invisible separator after the first '-'
     async function processMessage(message, ignoreAttachments) {

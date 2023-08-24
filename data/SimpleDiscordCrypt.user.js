@@ -2662,7 +2662,7 @@
         let message = event.message;
         if(message.content == null && message.embeds != null && message.embeds.length === 1) {
             let embed = message.embeds[0];
-            if(embed.footer != null && (embed.footer.text === "🔒" || embed.footer.text === "🔒")) {
+            if(embed.footer != null && (embed.footer.text === "SimpleDiscordCrypt" || embed.footer.text === "🔒")) {
                 return; //ignore embed-only updates
             }
         }
@@ -3483,7 +3483,7 @@
     async function processEmbeds(message, ignoreAttachments) {
         if(message.embeds == null || message.embeds.length !== 1) return;
         let embed = message.embeds[0];
-        if(embed.footer == null || (embed.footer.text !== "🔒" && embed.footer.text !== "🔒")) return;
+        if(embed.footer == null || (embed.footer.text !== "SimpleDiscordCrypt" && embed.footer.text !== "🔒")) return;
     
         if(embed.author == null) return;
     

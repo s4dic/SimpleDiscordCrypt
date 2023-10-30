@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SimpleDiscordCrypt
 // @namespace    https://gitlab.com/An0/SimpleDiscordCrypt
-// @version      1.7.2.1
+// @version      1.7.3.0
 // @description  I hope people won't start calling this SDC ^_^
 // @author       An0
 // @license      LGPLv3 - https://www.gnu.org/licenses/lgpl-3.0.txt
@@ -39,17 +39,17 @@
   const IgnoreDiffKeyAge = 7 * 24 * 60 * 60 * 1000;
   const DiffKeyTrigger = 10;
 
-  const HeaderBarSelector = `div[class^=chat] > section[class^=title-]`;
-  const HeaderBarChildrenSelector = `.children-3xh0VB`;
-  const HeaderBarChannelNameSelector = `.titleWrapper-24Kyzc, .channelName-3aS_Eg`;
-  const BackdropSelector = `div[class*="backdrop"]`;
-  const ModalClass = 'layer-fP3xEz';
-  const ImageWrapperImgSelector = `.imageWrapper-oMkQl4 > img`;
+  const HeaderBarSelector = `div[class^=chat] > section[class^=title]`;
+  const HeaderBarChildrenSelector = `${HeaderBarSelector} > div[class^=upperContainer] > div[class^=children]`;
+  const HeaderBarChannelNameSelector = `${HeaderBarChildrenSelector} div[class*=titleWrapper], ${HeaderBarChildrenSelector} div[class*=channelName]`;
+  const BackdropSelector = `div[class*=backdrop]`;
+  const ModalClass = 'layer_ad604d';
+  const ImageWrapperImgSelector = `.imageWrapper_fd6587 > img`;
   const ModalImgSelector = `.${ModalClass} ${ImageWrapperImgSelector}`;
-  const MessageScrollerSelector = `.scroller-kQBbkU`;
-  const ChatInputSelector = `.scrollableContainer-15eg7h`;
-  const MessageImgSelector = `.message-2CShn3 img`;
-  const ChatImageSelector = `${MessageScrollerSelector} .imageZoom-3yLCXY img`;
+  const MessageScrollerSelector = `.scroller__1f96e`;
+  const ChatInputSelector = `div[class^=channelTextArea] > div[class^=scrollableContainer]`;
+  const MessageImgSelector = `.message__80c10 img`;
+  const ChatImageSelector = `${MessageScrollerSelector} .imageZoom_ceab9d img`;
 
   const htmlEscapeDiv = document.createElement('div');
   function HtmlEscape(string) {
@@ -1344,6 +1344,7 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
       } else return null;
 
       const cachedExports = new Set();
+      let cachedExportsCount = 0;
       const moduleCache = new Set();
 
       const addModuleToCache = module => {
@@ -1380,8 +1381,14 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
       };
 
       const findModule = filter => {
-        const cache = Object.values(webpackExports.c);
-        if (cache.length !== cachedExports.size) addModulesToCache(cache);
+        const cache = webpackExports?.c;
+        if (cache == null) return null;
+
+        const cacheItems = Object.values(cache);
+        if (cacheItems.length !== cachedExportsCount) {
+          addModulesToCache(cacheItems);
+          cachedExportsCount = cacheItems.length;
+        }
 
         for (const module of moduleCache.values()) {
           if (filter(module)) return module;
@@ -1459,7 +1466,7 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
       return 0;
     }
 
-    modules.GuildCache = findModuleByUniqueProperties(['getGuild', 'getGuilds']);
+    modules.GuildCache = findModule(x => x.constructor?.displayName === 'GuildStore');
     if (modules.GuildCache == null) {
       if (final) Utils.Error('GuildCache not found.');
       return 0;
@@ -1471,7 +1478,7 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
       return 0;
     }
 
-    modules.CloudUploadPrototype = findModule(x => x.prototype?.uploadFileToCloud && x.prototype.upload)?.prototype;
+    modules.CloudUploadPrototype = findModuleByUniqueProperties(['CloudUpload'])?.CloudUpload.prototype;
     if (modules.CloudUploadPrototype == null) {
       if (final) Utils.Error('CloudUpload not found.');
       return 0;
@@ -3046,7 +3053,7 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
       let embed = message.embeds[0];
       if (
         embed.footer != null &&
-        (embed.footer.text === 'SimpleDiscordCrypt' || embed.footer.text === '🔒')
+        (embed.footer.text === 'SimpleDiscordCrypt' || embed.footer.text === '𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵')
       ) {
         return; //ignore embed-only updates
       }
@@ -3055,7 +3062,7 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
     if (!(await processMessage(message))) return await Discord.original_dispatch.apply(this, arguments);
   }
 
-  const messageRegex = /^([⠀-⣿]{16,}) `(?:SimpleDiscordCrypt|🔒)`$/;
+  const messageRegex = /^([⠀-⣿]{16,}) `(?:SimpleDiscordCrypt|𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵)`$/;
   const systemMessageRegex =
     /^```(?:\w*\n)?-----SYSTEM MESSAGE-----\n?```\s*(.*?)\s*```(?:\w*\n)?(?:𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵|SimpleDiscordCrypt)\n?```$/s;
   const unknownKeyMessage = '```fix\n-----ENCRYPTED MESSAGE WITH UNKNOWN KEY-----\n```';
@@ -3953,7 +3960,7 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
     let embed = message.embeds[0];
     if (
       embed.footer == null ||
-      (embed.footer.text !== 'SimpleDiscordCrypt' && embed.footer.text !== '🔒')
+      (embed.footer.text !== 'SimpleDiscordCrypt' && embed.footer.text !== '𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵')
     )
       return;
 
@@ -4042,7 +4049,7 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
       Cache.channelBlacklist === 2 ||
       (channel.type === 0 && !Utils.Can(EMBED_LINKS_CHECK, Discord.getCurrentUser(), channel))
     ) {
-      message.content = payload + ' `🔒`';
+      message.content = payload + ' `𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵`';
     } else {
       message.content = '';
       message.embed = {
@@ -4054,7 +4061,7 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
         },
         description: payload,
         footer: {
-          text: '🔒',
+          text: '𝘚𝘪𝘮𝘱𝘭𝘦𝘋𝘪𝘴𝘤𝘰𝘳𝘥𝘊𝘳𝘺𝘱𝘵',
           icon_url: 'https://i.imgur.com/zWXtTpX.png',
         },
       };

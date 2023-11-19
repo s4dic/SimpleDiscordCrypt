@@ -12,7 +12,7 @@ Install BetterDiscord and save this [Plugin](https://raw.githubusercontent.com/s
 
 ## Configure :
 ------------
-* right clic on the padlock and select "Start Key Exchange"
+* right clic on the lock icon and select "Start Key Exchange"
 
 ![Screenshot3](data/ScreenShoot3.png)
 

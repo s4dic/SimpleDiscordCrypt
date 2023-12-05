@@ -1338,7 +1338,6 @@ ${HeaderBarSelector}, ${HeaderBarChildrenSelector} { overflow: visible !importan
           {},
           req => {
             webpackExports = req;
-            ids.length = 0;
           },
         ]);
 

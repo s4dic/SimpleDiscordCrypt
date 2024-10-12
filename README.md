@@ -22,6 +22,14 @@ Install BetterDiscord and save this [Plugin](https://raw.githubusercontent.com/s
 
 and Enjoy !
 
+## Trouble shooting/Problèmes :
+Si vous rencontrez des problèmes avec les fichiers multimédias, envisagez de modifier cette option en la réglant sur "montrer".
+
+If you encounter issues with media files, consider changing this option to "show".
+
+![image](https://github.com/user-attachments/assets/834879d8-f056-4961-99f3-a8df40927509)
+
+
 ### Original Author :
 * SimpleDiscordCrypt: [https://gitlab.com/An0/SimpleDiscordCrypt](https://gitlab.com/An0/SimpleDiscordCrypt)
 

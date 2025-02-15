@@ -1,3 +1,7 @@
+
+![1916607](https://github.com/user-attachments/assets/aee117fe-eca3-4827-b5fe-d98b98be3f2c)
+Projet was move here : https://github.com/s4dic/discord/tree/main/BetterDiscord%20Plugins/SimpleDiscordCrypt
+
 # SimpleDiscordCrypt :
 ------------
 Add this plugin to add an protection to protect your privacy on discord.
